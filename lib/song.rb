@@ -1,3 +1,4 @@
+require 'pry'
 class Song
   attr_accessor :name, :artist, :genre
 
@@ -13,14 +14,8 @@ class Song
     
     @@count += 1
     @@songs.push(self)
-    
-    if(!@@genres.include?(genre))
       @@genres.push(genre)
-    end
-
-    if(!@@artists.include?(artist))
-      @@artists.push(artist)
-    end
+     @@artists.push(artist)
     
   end
   
@@ -29,36 +24,43 @@ class Song
   end
   
   def self.genres
-    @@genres
+    unique_push(@@genres)
   end
   
   def self.artists
-    @@artists
+    unique_push(@@artists)
   end
 
-
-  def self.genre_count
-    genres = {}
-    @@songs.each do |song|
-        if(!genres.include?(song.genre))
-            genres[song.genre] = 1
+  private 
+  def self.unique_push(items)
+    items_return = []
+    items.each do |item|
+      if(!items_return.include?(item))
+        items_return.push(item)
+      end
+    end
+    items_return
+  end
+  
+  private
+  def self.histogram(items)
+    return_hash = {}
+    items.each do |item|
+        if(!return_hash.include?(item))
+            return_hash[item] = 1
         else
-            genres[song.genre] += 1
+            return_hash[item] += 1
         end
     end
-    genres
+    return_hash
+  end
+  
+  def self.genre_count
+    histogram(@@genres)
   end
   
   def self.artist_count
-    artists = {}
-    @@songs.each do |song|
-        if(!artists.include?(song.artist))
-            artists[song.artist] = 1
-        else
-            artists[song.artist] += 1
-        end
-    end
-    artists
+    histogram(@@artists)
   end
   
   
