@@ -44,7 +44,7 @@ describe "Song" do
     end
 
     it "has a class variable, @@artists, that contains all of the artists of existing songs" do 
-      expect(Song.class_variable_get(:@@artists)).to match(["Jay-Z", "Jay-Z", "Brittany Spears"])
+      expect(Song.class_variable_get(:@@artists)).to match(["Jay-Z","Jay-Z", "Brittany Spears"])
     end
 
     it "has a class variable, @@genres, that contains all of the genres of existing songs" do 
